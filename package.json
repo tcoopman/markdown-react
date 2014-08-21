@@ -1,0 +1,18 @@
+{
+  "name": "markdown-parser",
+  "version": "0.0.0",
+  "description": "",
+  "main": "parse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "markdown": "^0.5.0",
+    "react": "^0.11.1"
+  },
+  "devDependencies": {
+    "react-tools": "^0.11.1"
+  }
+}
