@@ -34,8 +34,16 @@ var Header = React.createClass({
 
 var Para = React.createClass({
   render: function () {
+    var value;
+    if (Array.isArray(this.props.value)) {
+      value = this.props.value.map(item => {
+        return buildComponent(item);
+      });
+    } else {
+      value = this.props.value;
+    }
     return (
-      <p>{this.props.value}</p>
+      <p>{value}</p>
     );
   }
 });
@@ -53,10 +61,47 @@ var Bulletlist = React.createClass({
   }
 });
 
+
+var Numberlist = React.createClass({
+  render: function () {
+    var components = this.props.components.map(component => {
+      return buildComponent(component);
+    });
+    return (
+      <ol>
+        {components}
+      </ol>
+    );
+  }
+});
+
 var ListItem = React.createClass({
   render: function () {
+    var nested = this.props.components && this.props.components.map(component => {
+      return buildComponent(component);
+    });
     return (
-      <li>{this.props.value}</li>
+      <li>{this.props.value}{nested}</li>
+    );
+  }
+});
+
+
+var Blockquote = React.createClass({
+  render: function () {
+    var value;
+    if (Array.isArray(this.props.value)) {
+      value = this.props.value.map(item => {
+        return buildComponent(item);
+      });
+    } else {
+      value = buildComponent(this.props.value);
+    }
+
+    return (
+      <blockquote>
+        {value}
+      </blockquote>
     );
   }
 });
@@ -70,10 +115,22 @@ var buildComponent = function (component) {
     return (<Para value={component.value} />);
   } else if (component.id === 'bulletlist') {
     return (<Bulletlist components={component.components}/>);
+  } else if (component.id === 'numberlist') {
+    return (<Numberlist components={component.components} />);
   } else if (component.id === 'listitem') {
-    return (<ListItem value={component.value}/>);
+    return (<ListItem value={component.value} components={component.components}/>);
+  } else if (component.id === 'hr') {
+    return (<hr />);
+  } else if (component.id === 'em') {
+    return (<em>{component.value}</em>);
+  } else if (component.id === 'strong') {
+    return (<strong>{component.value}</strong>);
+  } else if (component.id === '') {
+    return (<span>{component.value}</span>);
+  } else if (component.id === 'blockquote') {
+    return (<Blockquote value={component.value} />);
   } else {
-    return (<div>abc</div>);
+    return (<div>BLOWUP {component.id} {component.value}</div>);
   }
 };
 

@@ -4,6 +4,7 @@
 var fs = require('fs');
 var util = require('util');
 var markdown = require('markdown').markdown;
+//var marked = require('marked');
 var React = require('react');
 
 var rBuildComponent = require('./reactRender').buildComponent;
@@ -29,8 +30,19 @@ var buildComponent = function (item, parent) {
   var section = Object.create(Section);
   var level;
   var id;
-  var type = item[0];
-  var args = item.slice(1);
+  if (item.references) {
+    section.id = 'references';
+    section.value = item.references;
+    return section;
+  }
+
+  if (Array.isArray(item)) {
+    var type = item[0];
+    var args = item.slice(1);
+  } else {
+    var type = '';
+    var args = item;
+  }
 
   if (type === 'para' && args[0][0] === 'link_ref') {
     var toParse = args[0][2].split('@')[1].split('(');
@@ -51,19 +63,34 @@ var buildComponent = function (item, parent) {
       return buildComponent(listitem);
     });
   } else if (type === 'listitem') {
+      //for some reason some items get wrapped in para
+      section.value = (!Array.isArray(args[0])) ? args[0] : args[0][1];
       if (args.length === 1) {
         id = type;
-        section.value = args[0];
       } else {
         id = type;
-        section.value = args[0];
         section.components = args.slice(1).map(function (arg) {
           return buildComponent(arg);
         });
       }
   } else {
+    if (args.length === 1 && Array.isArray(args)) {
+      var items;
+      if (Array.isArray(args[0])) {
+        items = buildComponent(args[0]);
+      } else {
+        items = args[0];
+      }
+      section.value = items;
+    } else if (Array.isArray(args)) {
+      var items = args.map(arg => {
+        return buildComponent(arg);
+      });
+      section.value = items;
+    } else {
+      section.value = args;
+    }
     id = type;
-    section.value = args[0];
   }
 
   section.id = id;
@@ -75,7 +102,13 @@ var buildComponent = function (item, parent) {
 function main() {
   var text = fs.readFileSync('text.md', 'utf-8');
   var syntax = markdown.parse(text);
+  console.log(markdown.toHTML(text));
   console.log(util.inspect(syntax, {depth: null}));
+
+  // var mTokens = marked.lexer(text);
+  // console.log('marked');
+  // console.log(mTokens);
+  // console.log(marked.parser(mTokens));
 
   var tree = Object.create(Section);
   tree.id = 'Section';
