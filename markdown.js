@@ -1,9 +1,12 @@
-/* @jsx React.DOM */
+/** @jsx React.DOM */
 'use strict';
 
 var fs = require('fs');
 var util = require('util');
 var markdown = require('markdown').markdown;
+var React = require('react');
+
+var RSection = require('./reactRender').Section;
 
 var Section = {
   add: function (component) {
@@ -99,6 +102,7 @@ function main() {
     }
   });
   console.log(util.inspect(tree, {depth: null}));
+  console.log(React.renderComponentToStaticMarkup(RSection()));
 }
 
 main();
