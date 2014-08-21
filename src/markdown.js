@@ -6,7 +6,7 @@ var util = require('util');
 var markdown = require('markdown').markdown;
 var React = require('react');
 
-var RSection = require('./reactRender').Section;
+var rBuildComponent = require('./reactRender').buildComponent;
 
 var Section = {
   add: function (component) {
@@ -102,7 +102,7 @@ function main() {
     }
   });
   console.log(util.inspect(tree, {depth: null}));
-  console.log(React.renderComponentToStaticMarkup(RSection()));
+  console.log(React.renderComponentToStaticMarkup(rBuildComponent(tree)));
 }
 
 main();
