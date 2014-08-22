@@ -7,21 +7,22 @@ var markdown = require('markdown').markdown;
 var React = require('react');
 
 var build = require('./buildMarkdownTree');
+var EL = require('./markdownElements');
 var rBuildTop = require('./reactRender').buildTop;
 
 
 function main() {
   var builders = {};
-  builders[build.BULLETLIST] = build.customBuildFactory(build.BULLETLIST);
-  builders[build.BLOCKQUOTE] = build.customBuildFactory(build.BLOCKQUOTE);
-  builders[build.EM] = build.customBuildFactory(build.EM);
-  builders[build.HEADER] = build.buildHeader;
-  builders[build.INLINECODE] = build.customBuildFactory(build.INLINECODE);
-  builders[build.LINKREF] = build.buildLinkRef;
-  builders[build.LISTITEM] = build.buildListitem;
-  builders[build.NUMBERLIST] = build.customBuildFactory(build.NUMBERLIST);
-  builders[build.PARA] = build.customBuildFactory(build.PARA);
-  builders[build.STRONG] = build.customBuildFactory(build.STRONG);
+  builders[EL.BULLETLIST] = build.customBuildFactory(EL.BULLETLIST);
+  builders[EL.BLOCKQUOTE] = build.customBuildFactory(EL.BLOCKQUOTE);
+  builders[EL.EM] = build.customBuildFactory(EL.EM);
+  builders[EL.HEADER] = build.buildHeader;
+  builders[EL.INLINECODE] = build.customBuildFactory(EL.INLINECODE);
+  builders[EL.LINKREF] = build.buildLinkRef;
+  builders[EL.LISTITEM] = build.buildListitem;
+  builders[EL.NUMBERLIST] = build.customBuildFactory(EL.NUMBERLIST);
+  builders[EL.PARA] = build.customBuildFactory(EL.PARA);
+  builders[EL.STRONG] = build.customBuildFactory(EL.STRONG);
   var builder = new build.Builder(builders);
 
 

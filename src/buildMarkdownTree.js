@@ -1,17 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
 
-
-var BULLETLIST = 'bulletlist';
-var BLOCKQUOTE = 'blockquote';
-var EM = 'em';
-var HEADER = 'header';
-var INLINECODE = 'inlinecode';
-var LINKREF = 'link_ref';
-var LISTITEM = 'listitem';
-var NUMBERLIST = 'numberlist';
-var PARA = 'para';
-var STRONG = 'strong';
+var EL = require('./markdownElements');
 
 /**
  * Builder - Build object
@@ -78,11 +68,11 @@ Builder.prototype.buildTop = function(tokens) {
  * @return {Object}      a list item.
  */
 function buildListitem(tokens, builder) {
-  var id = LISTITEM;
-  if (tokens[0] === PARA) {
+  var id = EL.LISTITEM;
+  if (tokens[0] === EL.PARA) {
     tokens = tokens.slice(1);
   }
-  if (tokens[0][0] === PARA) {
+  if (tokens[0][0] === EL.PARA) {
     tokens[0] = tokens[0].slice(1);
   }
 
@@ -102,7 +92,7 @@ function buildListitem(tokens, builder) {
  * @return {Object}      a header item.
  */
 function buildHeader(tokens, builder) {
-  var id = HEADER;
+  var id = EL.HEADER;
   var level = tokens[0].level;
 
   var values = tokens.slice(1).map(token => {
@@ -114,7 +104,7 @@ function buildHeader(tokens, builder) {
 
 
 function buildLinkRef(tokens, builder) {
-  var id = LINKREF;
+  var id = EL.LINKREF;
   var ref = tokens[0].ref;
   var original = tokens[0].original;
   var values = tokens.slice(1).map(token => {
@@ -148,14 +138,3 @@ exports.buildListitem = buildListitem;
 exports.buildHeader = buildHeader;
 exports.Builder = Builder;
 exports.customBuildFactory = customBuildFactory;
-
-exports.BULLETLIST = BULLETLIST;
-exports.BLOCKQUOTE = BLOCKQUOTE;
-exports.EM = EM;
-exports.HEADER = HEADER;
-exports.INLINECODE = INLINECODE;
-exports.LINKREF = LINKREF;
-exports.LISTITEM = LISTITEM;
-exports.NUMBERLIST = NUMBERLIST;
-exports.PARA = PARA;
-exports.STRONG = STRONG;
