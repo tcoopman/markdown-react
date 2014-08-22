@@ -16,8 +16,10 @@ function main() {
   builders[build.BLOCKQUOTE] = build.customBuildFactory(build.BLOCKQUOTE);
   builders[build.EM] = build.customBuildFactory(build.EM);
   builders[build.HEADER] = build.buildHeader;
+  builders[build.INLINECODE] = build.customBuildFactory(build.INLINECODE);
   builders[build.LINKREF] = build.buildLinkRef;
   builders[build.LISTITEM] = build.buildListitem;
+  builders[build.NUMBERLIST] = build.customBuildFactory(build.NUMBERLIST);
   builders[build.PARA] = build.customBuildFactory(build.PARA);
   builders[build.STRONG] = build.customBuildFactory(build.STRONG);
   var builder = new build.Builder(builders);

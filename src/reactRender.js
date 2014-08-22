@@ -108,6 +108,19 @@ var Blockquote = React.createClass({
   }
 });
 
+
+var Inlinecode = React.createClass({
+  render: function () {
+    var values = buildValues(this.props.values);
+
+    return (
+      <pre>
+        {values}
+      </pre>
+    );
+  }
+});
+
 var references;
 
 
@@ -138,7 +151,7 @@ var buildComponent = function (component) {
   } else if (component.id === 'bulletlist') {
     return (<Bulletlist values={component.values}/>);
   } else if (component.id === 'numberlist') {
-    return (<Numberlist components={component.values} />);
+    return (<Numberlist values={component.values} />);
   } else if (component.id === 'listitem') {
     return (<ListItem values={component.values} />);
   } else if (component.id === 'hr') {
@@ -151,6 +164,8 @@ var buildComponent = function (component) {
     return (<span>{component.values}</span>);
   } else if (component.id === 'blockquote') {
     return (<Blockquote values={component.values} />);
+  } else if (component.id === 'inlinecode') {
+    return (<Inlinecode values={component.values} />);
   } else if (component.id === 'link_ref') {
     return (<Link values={component.values} ref={component.ref} />);
   } else {

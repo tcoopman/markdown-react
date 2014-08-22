@@ -6,8 +6,10 @@ var BULLETLIST = 'bulletlist';
 var BLOCKQUOTE = 'blockquote';
 var EM = 'em';
 var HEADER = 'header';
+var INLINECODE = 'inlinecode';
 var LINKREF = 'link_ref';
 var LISTITEM = 'listitem';
+var NUMBERLIST = 'numberlist';
 var PARA = 'para';
 var STRONG = 'strong';
 
@@ -31,11 +33,7 @@ function Builder(builders) {
  */
 Builder.prototype.build = function(tokens) {
   if (Array.isArray(tokens)) {
-    console.log('build');
-    console.log(tokens);
     var build = this.builders[tokens[0]];
-    console.log(tokens[0]);
-    console.log(build);
     if (build) {
       return build(tokens.splice(1), this);
     } else {
@@ -155,7 +153,9 @@ exports.BULLETLIST = BULLETLIST;
 exports.BLOCKQUOTE = BLOCKQUOTE;
 exports.EM = EM;
 exports.HEADER = HEADER;
+exports.INLINECODE = INLINECODE;
 exports.LINKREF = LINKREF;
 exports.LISTITEM = LISTITEM;
+exports.NUMBERLIST = NUMBERLIST;
 exports.PARA = PARA;
 exports.STRONG = STRONG;
