@@ -8,7 +8,7 @@ var React = require('react');
 
 var build = require('./buildMarkdownTree');
 var EL = require('./markdownElements');
-var rBuildTop = require('./reactRender').buildTop;
+var r = require('./reactRender');
 
 
 function main() {
@@ -32,11 +32,11 @@ function main() {
 
   var top = builder.buildTop(syntax.slice(1));
 
-  console.log('XXXXXXXXXXXX');
+  //console.log('XXXXXXXXXXXX');
   console.log(util.inspect(top, {depth: null}));
 
-
-  console.log(React.renderComponentToStaticMarkup(rBuildTop(top)));
+  var reactBuilder = new r.ReactBuilder(r.elements);
+  console.log(React.renderComponentToStaticMarkup(reactBuilder.build(top)));
 }
 
 main();

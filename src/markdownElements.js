@@ -1,6 +1,6 @@
 var elements = {
-  BULLETLIST: 'bulletlist',
   BLOCKQUOTE: 'blockquote',
+  BULLETLIST: 'bulletlist',
   EM: 'em',
   HEADER: 'header',
   INLINECODE: 'inlinecode',
@@ -8,6 +8,8 @@ var elements = {
   LISTITEM: 'listitem',
   NUMBERLIST: 'numberlist',
   PARA: 'para',
+  SECTION: 'Section',
+  SPAN: 'span',
   STRONG: 'strong'
 };
 

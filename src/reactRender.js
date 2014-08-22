@@ -1,40 +1,22 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-function buildValues(values) {
-  var buildedValues;
-  if (Array.isArray(values)) {
-    buildedValues = values.map(item => {
-      return buildComponent(item);
-    });
-  } else {
-    buildedValues = buildComponent(values);
-  }
+var EL = require('./markdownElements');
 
-  return buildedValues;
-}
-
-var Section = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-    return (
-      <div className="Section">{values}</div>
-    );
-  }
-});
 
 var Header = React.createClass({
   render: function () {
     var html;
-    switch (this.props.level) {
+    var values = this.props.builder.buildValues(this.props.component.values);
+    switch (this.props.component.level) {
       case 1:
-        html = (<h1>{this.props.value}</h1>);
+        html = (<h1>{values}</h1>);
         break;
       case 2:
-        html = (<h2>{this.props.value}</h2>);
+        html = (<h2>{values}</h2>);
         break;
       default:
-        html = (<h3>{this.props.value}</h3>);
+        html = (<h3>{values}</h3>);
         break;
     }
     return (
@@ -43,95 +25,48 @@ var Header = React.createClass({
   }
 });
 
-var Para = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-    return (
-      <p>{values}</p>
-    );
-  }
-});
-
-var Bulletlist = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-    return (
-      <ul>
-        {values}
-      </ul>
-    );
-  }
-});
-
-
-var Numberlist = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-    return (
-      <ol>
-        {values}
-      </ol>
-    );
-  }
-});
-
-var ListItem = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-    return (
-      <li>{values}</li>
-    );
-  }
-});
 
 var Link = React.createClass({
   render: function () {
-    var link = references[this.props.ref].href;
-    var values = buildValues(this.props.values);
+    var link = this.props.builder.references[this.props.component.ref].href;
+    var values = this.props.builder.buildValues(this.props.component.values);
 
     return (
-      <a href={link}>{this.props.values}</a>
+      <a href={link}>{values}</a>
     );
   }
 });
 
 
-var Blockquote = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-
-    return (
-      <blockquote>
-        {values}
-      </blockquote>
-    );
-  }
-});
-
-
-var Inlinecode = React.createClass({
-  render: function () {
-    var values = buildValues(this.props.values);
-
-    return (
-      <pre>
-        {values}
-      </pre>
-    );
-  }
-});
-
-var references;
-
-
-var buildTop = function (top) {
-  references = top.references;
-  return buildComponent(top.section);
+function createReactClass(element) {
+  return React.createClass({
+    render: function () {
+      var values = this.props.builder.buildValues(this.props.component.values);
+      return (
+        <element>
+          {values}
+        </element>
+      );
+    }
+  });
 }
 
-var buildComponent = function (component) {
+
+function ReactBuilder(elements) {
+  this.elements = elements;
+}
+
+
+ReactBuilder.prototype.build = function(top) {
+  this.references = top.references;
+  return this.buildElement(top.section);
+}
+
+
+ReactBuilder.prototype.buildElement = function(component) {
+  // First return the easy cases;
   if (typeof component === 'undefined') {
-    return (<div>undefined</div>);
+    return <div>UNDEFINED</div>;
   }
 
   if (typeof component === 'string') {
@@ -139,42 +74,48 @@ var buildComponent = function (component) {
   } else if (Array.isArray(component) && Array.length === 1) {
     return component[0];
   }
-  if (component.id === 'Section') {
-    return (<Section values={component.values} />);
-  } else if (component.id === 'references') {
-    references = component;
-    return (<span></span>);
-  } else if (component.id === 'header') {
-    return (<Header level={component.level} value={component.values} />);
-  } else if (component.id === 'para') {
-    return (<Para values={component.values} />);
-  } else if (component.id === 'bulletlist') {
-    return (<Bulletlist values={component.values}/>);
-  } else if (component.id === 'numberlist') {
-    return (<Numberlist values={component.values} />);
-  } else if (component.id === 'listitem') {
-    return (<ListItem values={component.values} />);
-  } else if (component.id === 'hr') {
-    return (<hr />);
-  } else if (component.id === 'em') {
-    return (<em>{component.values}</em>);
-  } else if (component.id === 'strong') {
-    return (<strong>{component.values}</strong>);
-  } else if (component.id === '') {
-    return (<span>{component.values}</span>);
-  } else if (component.id === 'blockquote') {
-    return (<Blockquote values={component.values} />);
-  } else if (component.id === 'inlinecode') {
-    return (<Inlinecode values={component.values} />);
-  } else if (component.id === 'link_ref') {
-    return (<Link values={component.values} ref={component.ref} />);
-  } else {
-    console.log('BLOWUP');
-    console.log('component');
-    console.log(component);
-    return (<div>BLOWUP {component.id} {component.values}</div>);
-  }
-};
 
-exports.buildComponent = buildComponent;
-exports.buildTop = buildTop;
+  if (component.id) {
+    var element = this.elements[component.id];
+    if (element) {
+      return <element component={component} builder={this} />;
+    } else {
+      return <div>NOOOO</div>;
+    }
+  } else {
+    return <div>AARRRGGGH</div>;
+  }
+
+}
+
+
+ReactBuilder.prototype.buildValues = function(values) {
+  var buildedValues;
+  if (Array.isArray(values)) {
+    buildedValues = values.map(item => {
+      return this.buildElement(item);
+    });
+  } else {
+    buildedValues = this.buildElement(values);
+  }
+
+  return buildedValues;
+}
+
+
+var elements = {}
+elements[EL.BLOCKQUOTE] = createReactClass(React.DOM.blockquote);
+elements[EL.BULLETLIST] = createReactClass(React.DOM.ul);
+elements[EL.EM] = createReactClass(React.DOM.em);
+elements[EL.HEADER] = Header;
+elements[EL.INLINECODE] = createReactClass(React.DOM.pre);
+elements[EL.LISTITEM] = createReactClass(React.DOM.li);
+elements[EL.LINKREF] = Link;
+elements[EL.NUMBERLIST] = createReactClass(React.DOM.ol);
+elements[EL.PARA] = createReactClass(React.DOM.p);
+elements[EL.SECTION] = createReactClass(React.DOM.section);
+elements[EL.STRONG] = createReactClass(React.DOM.strong);
+
+
+exports.elements = elements;
+exports.ReactBuilder = ReactBuilder;
