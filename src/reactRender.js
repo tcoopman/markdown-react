@@ -1,11 +1,22 @@
 /** @jsx React.DOM */
 var React = require('react');
 
+function buildValues(values) {
+  var buildedValues;
+  if (Array.isArray(values)) {
+    buildedValues = values.map(item => {
+      return buildComponent(item);
+    });
+  } else {
+    buildedValues = buildComponent(values);
+  }
+
+  return buildedValues;
+}
+
 var Section = React.createClass({
   render: function () {
-    var values = this.props.values.map(value => {
-      return buildComponent(value);
-    });
+    var values = buildValues(this.props.values);
     return (
       <div className="Section">{values}</div>
     );
@@ -34,25 +45,16 @@ var Header = React.createClass({
 
 var Para = React.createClass({
   render: function () {
-    var value;
-    if (Array.isArray(this.props.values)) {
-      value = this.props.values.map(item => {
-        return buildComponent(item);
-      });
-    } else {
-      value = this.props.values;
-    }
+    var values = buildValues(this.props.values);
     return (
-      <p>{value}</p>
+      <p>{values}</p>
     );
   }
 });
 
 var Bulletlist = React.createClass({
   render: function () {
-    var values = this.props.values.map(value => {
-      return buildComponent(value);
-    });
+    var values = buildValues(this.props.values);
     return (
       <ul>
         {values}
@@ -64,12 +66,10 @@ var Bulletlist = React.createClass({
 
 var Numberlist = React.createClass({
   render: function () {
-    var components = this.props.components.map(component => {
-      return buildComponent(component);
-    });
+    var values = buildValues(this.props.values);
     return (
       <ol>
-        {components}
+        {values}
       </ol>
     );
   }
@@ -77,21 +77,20 @@ var Numberlist = React.createClass({
 
 var ListItem = React.createClass({
   render: function () {
-    var nested = this.props.values && this.props.values.map(value => {
-      console.log(value);
-      return buildComponent(value);
-    });
+    var values = buildValues(this.props.values);
     return (
-      <li>{nested}</li>
+      <li>{values}</li>
     );
   }
 });
 
 var Link = React.createClass({
   render: function () {
-    var link = references.value[this.props.ref].href;
+    var link = references[this.props.ref].href;
+    var values = buildValues(this.props.values);
+
     return (
-      <a href={link}>{this.props.value}</a>
+      <a href={link}>{this.props.values}</a>
     );
   }
 });
@@ -99,18 +98,11 @@ var Link = React.createClass({
 
 var Blockquote = React.createClass({
   render: function () {
-    var value;
-    if (Array.isArray(this.props.values)) {
-      value = this.props.values.map(item => {
-        return buildComponent(item);
-      });
-    } else {
-      value = buildComponent(this.props.values);
-    }
+    var values = buildValues(this.props.values);
 
     return (
       <blockquote>
-        {value}
+        {values}
       </blockquote>
     );
   }

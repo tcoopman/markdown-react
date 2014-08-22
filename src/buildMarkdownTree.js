@@ -31,7 +31,11 @@ function Builder(builders) {
  */
 Builder.prototype.build = function(tokens) {
   if (Array.isArray(tokens)) {
+    console.log('build');
+    console.log(tokens);
     var build = this.builders[tokens[0]];
+    console.log(tokens[0]);
+    console.log(build);
     if (build) {
       return build(tokens.splice(1), this);
     } else {
@@ -77,7 +81,6 @@ Builder.prototype.buildTop = function(tokens) {
  */
 function buildListitem(tokens, builder) {
   var id = LISTITEM;
-  console.log(tokens);
   if (tokens[0] === PARA) {
     tokens = tokens.slice(1);
   }
@@ -113,7 +116,6 @@ function buildHeader(tokens, builder) {
 
 
 function buildLinkRef(tokens, builder) {
-  console.log('building ref');
   var id = LINKREF;
   var ref = tokens[0].ref;
   var original = tokens[0].original;
@@ -153,7 +155,7 @@ exports.BULLETLIST = BULLETLIST;
 exports.BLOCKQUOTE = BLOCKQUOTE;
 exports.EM = EM;
 exports.HEADER = HEADER;
-exports.LINK_REF = LINKREF;
+exports.LINKREF = LINKREF;
 exports.LISTITEM = LISTITEM;
 exports.PARA = PARA;
 exports.STRONG = STRONG;

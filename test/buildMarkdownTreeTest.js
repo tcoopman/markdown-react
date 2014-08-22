@@ -85,6 +85,20 @@ describe('build functions', function () {
   });
 
 
+  describe('buildLinkRef', function () {
+    it('should build link ref', function () {
+      var listToken = [{ref: 'ref', original: '[original]'}, 'original'];
+      var link = build.buildLinkRef(listToken, builder);
+      assert.equal(link.id, 'link_ref');
+      assert.equal(link.ref, 'ref');
+      assert.equal(link.original, '[original]');
+      assert.isArray(link.values);
+      assert.equal(builder.build.callCount, 1);
+      assert.equal(link.values[0], listToken[1]);
+    });
+  });
+
+
   describe('customBuildFactory', function () {
     it('should build with simple custom items', function () {
       var id = 'whatever';
