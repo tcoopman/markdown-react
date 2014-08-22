@@ -3,11 +3,11 @@ var React = require('react');
 
 var Section = React.createClass({
   render: function () {
-    var components = this.props.components.map(component => {
-      return buildComponent(component);
+    var values = this.props.values.map(value => {
+      return buildComponent(value);
     });
     return (
-      <div className="Section">{components}</div>
+      <div className="Section">{values}</div>
     );
   }
 });
@@ -35,12 +35,12 @@ var Header = React.createClass({
 var Para = React.createClass({
   render: function () {
     var value;
-    if (Array.isArray(this.props.value)) {
-      value = this.props.value.map(item => {
+    if (Array.isArray(this.props.values)) {
+      value = this.props.values.map(item => {
         return buildComponent(item);
       });
     } else {
-      value = this.props.value;
+      value = this.props.values;
     }
     return (
       <p>{value}</p>
@@ -50,12 +50,12 @@ var Para = React.createClass({
 
 var Bulletlist = React.createClass({
   render: function () {
-    var components = this.props.components.map(component => {
-      return buildComponent(component);
+    var values = this.props.values.map(value => {
+      return buildComponent(value);
     });
     return (
       <ul>
-        {components}
+        {values}
       </ul>
     );
   }
@@ -77,11 +77,21 @@ var Numberlist = React.createClass({
 
 var ListItem = React.createClass({
   render: function () {
-    var nested = this.props.components && this.props.components.map(component => {
-      return buildComponent(component);
+    var nested = this.props.values && this.props.values.map(value => {
+      console.log(value);
+      return buildComponent(value);
     });
     return (
-      <li>{this.props.value}{nested}</li>
+      <li>{nested}</li>
+    );
+  }
+});
+
+var Link = React.createClass({
+  render: function () {
+    var link = references.value[this.props.ref].href;
+    return (
+      <a href={link}>{this.props.value}</a>
     );
   }
 });
@@ -90,12 +100,12 @@ var ListItem = React.createClass({
 var Blockquote = React.createClass({
   render: function () {
     var value;
-    if (Array.isArray(this.props.value)) {
-      value = this.props.value.map(item => {
+    if (Array.isArray(this.props.values)) {
+      value = this.props.values.map(item => {
         return buildComponent(item);
       });
     } else {
-      value = buildComponent(this.props.value);
+      value = buildComponent(this.props.values);
     }
 
     return (
@@ -106,32 +116,58 @@ var Blockquote = React.createClass({
   }
 });
 
+var references;
+
+
+var buildTop = function (top) {
+  references = top.references;
+  return buildComponent(top.section);
+}
+
 var buildComponent = function (component) {
+  if (typeof component === 'undefined') {
+    return (<div>undefined</div>);
+  }
+
+  if (typeof component === 'string') {
+    return component;
+  } else if (Array.isArray(component) && Array.length === 1) {
+    return component[0];
+  }
   if (component.id === 'Section') {
-    return (<Section components={component.components} />);
+    return (<Section values={component.values} />);
+  } else if (component.id === 'references') {
+    references = component;
+    return (<span></span>);
   } else if (component.id === 'header') {
-    return (<Header level={component.level} value={component.value} />);
+    return (<Header level={component.level} value={component.values} />);
   } else if (component.id === 'para') {
-    return (<Para value={component.value} />);
+    return (<Para values={component.values} />);
   } else if (component.id === 'bulletlist') {
-    return (<Bulletlist components={component.components}/>);
+    return (<Bulletlist values={component.values}/>);
   } else if (component.id === 'numberlist') {
-    return (<Numberlist components={component.components} />);
+    return (<Numberlist components={component.values} />);
   } else if (component.id === 'listitem') {
-    return (<ListItem value={component.value} components={component.components}/>);
+    return (<ListItem values={component.values} />);
   } else if (component.id === 'hr') {
     return (<hr />);
   } else if (component.id === 'em') {
-    return (<em>{component.value}</em>);
+    return (<em>{component.values}</em>);
   } else if (component.id === 'strong') {
-    return (<strong>{component.value}</strong>);
+    return (<strong>{component.values}</strong>);
   } else if (component.id === '') {
-    return (<span>{component.value}</span>);
+    return (<span>{component.values}</span>);
   } else if (component.id === 'blockquote') {
-    return (<Blockquote value={component.value} />);
+    return (<Blockquote values={component.values} />);
+  } else if (component.id === 'link_ref') {
+    return (<Link values={component.values} ref={component.ref} />);
   } else {
-    return (<div>BLOWUP {component.id} {component.value}</div>);
+    console.log('BLOWUP');
+    console.log('component');
+    console.log(component);
+    return (<div>BLOWUP {component.id} {component.values}</div>);
   }
 };
 
 exports.buildComponent = buildComponent;
+exports.buildTop = buildTop;

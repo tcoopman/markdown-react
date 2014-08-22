@@ -1,5 +1,18 @@
-Dillinger
+ Dillinger
 =========
+
+* complexer lists
+  * nested for example
+  * double nested
+    * tripple
+  * x
+    1. x
+    2. y
+
+
+* un
+* deux
+* troix with *complex* items in it **weee**
 
 Dillinger is a cloud-enabled HTML5 Markdown editor.
 

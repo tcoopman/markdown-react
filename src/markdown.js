@@ -4,7 +4,6 @@
 var fs = require('fs');
 var util = require('util');
 var markdown = require('markdown').markdown;
-//var marked = require('marked');
 var React = require('react');
 
 var rBuildComponent = require('./reactRender').buildComponent;
@@ -23,6 +22,11 @@ var Section = {
 function Section(level) {
   this.components = [];
   this.level = level;
+}
+
+
+var buildListItem = function (item, parent) {
+
 }
 
 
@@ -73,6 +77,11 @@ var buildComponent = function (item, parent) {
           return buildComponent(arg);
         });
       }
+  } else if (type === 'link_ref') {
+    section.ref = args[0].ref;
+    section.original = args[0].original;
+    section.value = args[1];
+    id = type;
   } else {
     if (args.length === 1 && Array.isArray(args)) {
       var items;
@@ -102,13 +111,7 @@ var buildComponent = function (item, parent) {
 function main() {
   var text = fs.readFileSync('text.md', 'utf-8');
   var syntax = markdown.parse(text);
-  console.log(markdown.toHTML(text));
   console.log(util.inspect(syntax, {depth: null}));
-
-  // var mTokens = marked.lexer(text);
-  // console.log('marked');
-  // console.log(mTokens);
-  // console.log(marked.parser(mTokens));
 
   var tree = Object.create(Section);
   tree.id = 'Section';
@@ -134,8 +137,8 @@ function main() {
       node.add(comp);
     }
   });
-  console.log(util.inspect(tree, {depth: null}));
-  console.log(React.renderComponentToStaticMarkup(rBuildComponent(tree)));
+  //console.log(util.inspect(tree, {depth: null}));
+  //console.log(React.renderComponentToStaticMarkup(rBuildComponent(tree)));
 }
 
 main();
