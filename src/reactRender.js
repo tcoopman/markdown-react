@@ -8,16 +8,12 @@ var Header = React.createClass({
   render: function () {
     var html;
     var values = this.props.builder.buildValues(this.props.component.values);
-    switch (this.props.component.level) {
-      case 1:
-        html = (<h1>{values}</h1>);
-        break;
-      case 2:
-        html = (<h2>{values}</h2>);
-        break;
-      default:
-        html = (<h3>{values}</h3>);
-        break;
+    var level = this.props.component.level;
+    if (level && level > 0 && level < 7) {
+      var h = React.DOM['h' + level];
+      html = (<h>{values}</h>);
+    } else {
+      html = (<div>ERROR incorrect level</div>);
     }
     return (
       html
