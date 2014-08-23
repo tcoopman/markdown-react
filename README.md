@@ -13,7 +13,6 @@ Parse markdown to a React structure instead of a html. This allows you to all so
 
 This script doesn't parse markdown, instead it uses `evilstreak/markdown-js`. I'm probably going to add an other backend too `chjj/marked`
 
-
 TODO
 ----
 
@@ -22,3 +21,20 @@ TODO
 * Make this useable for a blog site (compile to React and static HTML)
 * Add a backend for: chjj/marked
 * More tests
+* Complete documentation
+
+Installation
+------------
+
+* clone this repo
+* `npm install`
+* compile jsx `node_modules/react-tools/bin/jsx --watch --harmony src/ dist/`
+* run `node dist/index.js`
+
+Tests
+-----
+
+* clone this repo
+* `npm install`
+* compile jsx `node_modules/react-tools/bin/jsx --watch --harmony src/ dist/`
+* run `node_modules/mocha/bin/mocha`
