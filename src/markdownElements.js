@@ -4,6 +4,7 @@ var elements = {
   EM: 'em',
   HEADER: 'header',
   INLINECODE: 'inlinecode',
+  LINK: 'link',
   LINKREF: 'link_ref',
   LISTITEM: 'listitem',
   NUMBERLIST: 'numberlist',

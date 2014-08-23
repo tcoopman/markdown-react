@@ -103,6 +103,17 @@ function buildHeader(tokens, builder) {
 }
 
 
+function buildLink(tokens, builder) {
+  var id = EL.LINK;
+  var href = tokens[0].href;
+  var values = tokens.slice(1).map(token => {
+    return builder.build(token);
+  });
+
+  return {id: id, href: href, values: values};
+}
+
+
 function buildLinkRef(tokens, builder) {
   var id = EL.LINKREF;
   var ref = tokens[0].ref;
@@ -117,7 +128,7 @@ function buildLinkRef(tokens, builder) {
 
 
 /**
- * customBuildFactory - Builds a custom build functions
+ * customBuildFactory - Builds a custom build function
  *
  * @param  {string} id the id of the custom function
  * @return {function}    custom build function
@@ -133,6 +144,7 @@ function customBuildFactory(id) {
 }
 
 
+exports.buildLink = buildLink;
 exports.buildLinkRef = buildLinkRef;
 exports.buildListitem = buildListitem;
 exports.buildHeader = buildHeader;

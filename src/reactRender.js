@@ -28,7 +28,12 @@ var Header = React.createClass({
 
 var Link = React.createClass({
   render: function () {
-    var link = this.props.builder.references[this.props.component.ref].href;
+    var link;
+    if (this.props.component.href) {
+      link = this.props.component.href;
+    } else {
+      link = this.props.builder.references[this.props.component.ref].href;
+    }
     var values = this.props.builder.buildValues(this.props.component.values);
 
     return (
@@ -110,6 +115,7 @@ elements[EL.EM] = createReactClass(React.DOM.em);
 elements[EL.HEADER] = Header;
 elements[EL.INLINECODE] = createReactClass(React.DOM.pre);
 elements[EL.LISTITEM] = createReactClass(React.DOM.li);
+elements[EL.LINK] = Link;
 elements[EL.LINKREF] = Link;
 elements[EL.NUMBERLIST] = createReactClass(React.DOM.ol);
 elements[EL.PARA] = createReactClass(React.DOM.p);

@@ -18,6 +18,7 @@ function main() {
   builders[EL.EM] = build.customBuildFactory(EL.EM);
   builders[EL.HEADER] = build.buildHeader;
   builders[EL.INLINECODE] = build.customBuildFactory(EL.INLINECODE);
+  builders[EL.LINK] = build.buildLink;
   builders[EL.LINKREF] = build.buildLinkRef;
   builders[EL.LISTITEM] = build.buildListitem;
   builders[EL.NUMBERLIST] = build.customBuildFactory(EL.NUMBERLIST);
@@ -26,7 +27,7 @@ function main() {
   var builder = new build.Builder(builders);
 
 
-  var text = fs.readFileSync('text.md', 'utf-8');
+  var text = fs.readFileSync('README.md', 'utf-8');
   var syntax = markdown.parse(text);
   console.log(util.inspect(syntax, {depth: 10}));
 
