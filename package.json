@@ -1,8 +1,8 @@
 {
   "name": "markdown-parser",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "parse.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,13 +10,15 @@
   "license": "ISC",
   "dependencies": {
     "markdown": "^0.5.0",
-    "marked": "^0.3.2",
-    "react": "^0.11.1"
+    "marked": "^0.3.2"
   },
   "devDependencies": {
     "chai": "^1.9.1",
     "mocha": "^1.21.4",
     "react-tools": "^0.11.1",
     "sinon": "^1.10.3"
+  },
+  "peerDependencies": {
+    "react": "^0.11.1"
   }
 }
