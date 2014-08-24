@@ -14,17 +14,20 @@ This means you can render a normal html structure but also do al sort of crazy t
 
 This script doesn't parse markdown, instead it uses `evilstreak/markdown-js`. I'm probably going to add an other backend too `chjj/marked`
 
+Some examples can be found in examples. After installation, you can run these (`node examples/simple.js`)
+
 TODO
 ----
 
-* Clean up the installtion
-* Clean up repo (in progress)
-* Build a small what using React can do (numbered titles, onClick,...)
+* ~~Clean up the installation~~
+* ~~Clean up repo~~
+* Build a small example of what is possible with React together with markdown (numbered titles, onClick,...)
 * Make this useable for a blog site (compile to React and static HTML)
 * Add a backend for: chjj/marked
 * More tests and fix the tests to point to lib
 * Complete documentation
-* Server example
+* ~~Server example~~
+* Publish to npm
 
 Installation
 ------------

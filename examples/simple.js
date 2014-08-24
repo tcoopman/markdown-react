@@ -9,4 +9,5 @@ var text = fs.readFileSync('README.md', 'utf-8');
 
 var app = i.buildReactApp(text);
 
-console.log(React.renderComponentToString(app));
+// outputs the Markdown in README to static html
+console.log(React.renderComponentToStaticMarkup(app));
