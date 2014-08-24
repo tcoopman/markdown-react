@@ -16,7 +16,7 @@ ReactBuilder.prototype.build = function(top) {
 ReactBuilder.prototype.buildElement = function(component) {
   // First return the easy cases;
   if (typeof component === 'undefined') {
-    return React.DOM.div(null, "UNDEFINED");
+    return <div>UNDEFINED</div>;
   }
 
   if (typeof component === 'string') {
@@ -28,12 +28,12 @@ ReactBuilder.prototype.buildElement = function(component) {
   if (component.id) {
     var element = this.elements[component.id];
     if (element) {
-      return element({component: component, builder: this});
+      return <element component={component} builder={this} />;
     } else {
-      return React.DOM.div(null, "NOOOO");
+      return <div>NOOOO</div>;
     }
   } else {
-    return React.DOM.div(null, "AARRRGGGH");
+    return <div>AARRRGGGH</div>;
   }
 
 }
@@ -42,9 +42,9 @@ ReactBuilder.prototype.buildElement = function(component) {
 ReactBuilder.prototype.buildValues = function(values) {
   var buildedValues;
   if (Array.isArray(values)) {
-    buildedValues = values.map(function(item)  {
+    buildedValues = values.map(item => {
       return this.buildElement(item);
-    }.bind(this));
+    });
   } else {
     buildedValues = this.buildElement(values);
   }
