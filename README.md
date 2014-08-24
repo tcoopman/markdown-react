@@ -14,7 +14,8 @@ This means you can render a normal html structure but also do al sort of crazy t
 
 This script doesn't parse markdown, instead it uses `evilstreak/markdown-js`. I'm probably going to add an other backend too `chjj/marked`
 
-Some examples can be found in examples. After installation, you can run these (`node examples/simple.js`)
+Some examples can be found in examples. After installation, you can run these (`node examples/simple.js`).
+A server example can be found in [react-markdown-server](https://github.com/tcoopman/markdown-react-server)
 
 TODO
 ----
