@@ -4,7 +4,7 @@ var React = require('react');
 var EL = require('./markdownElements');
 
 
-var Header = React.createClass({displayName: 'Header',
+var Header = React.createClass({
   render: function () {
     var html;
     var values = this.props.builder.buildValues(this.props.component.values);
@@ -22,7 +22,7 @@ var Header = React.createClass({displayName: 'Header',
 });
 
 
-var Link = React.createClass({displayName: 'Link',
+var Link = React.createClass({
   render: function () {
     var link;
     if (this.props.component.href) {
