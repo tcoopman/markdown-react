@@ -44,6 +44,13 @@ Tests
 * compile jsx `node_modules/react-tools/bin/jsx --watch --harmony src/ dist/`
 * run `node_modules/mocha/bin/mocha`
 
+Build
+-----
+* clone this repo
+* `npm install`
+* compile jsx `node_modules/react-tools/bin/jsx --watch --harmony src/ lib/`
+
+
 Maybe later
 -----------
 
