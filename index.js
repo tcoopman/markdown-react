@@ -13,6 +13,7 @@ function getDefaultReactComponents() {
   components[EL.BULLETLIST] = reactComponents[EL.BULLETLIST];
   components[EL.EM] = reactComponents[EL.EM];
   components[EL.HEADER] = reactComponents[EL.HEADER];
+  components[EL.IMAGE] = reactComponents[EL.IMAGE];
   components[EL.INLINECODE] = reactComponents[EL.INLINECODE];
   components[EL.LISTITEM] = reactComponents[EL.LISTITEM];
   components[EL.LINK] = reactComponents[EL.LINK];

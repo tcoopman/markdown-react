@@ -39,6 +39,13 @@ var Link = React.createClass({
 });
 
 
+var Image =  React.createClass({
+  render: function () {
+    return React.DOM.img({alt: this.props.component.alt, href: this.props.component.href}, null);
+  }
+});
+
+
 function createReactClass(element) {
   return React.createClass({
     render: function () {
@@ -55,6 +62,7 @@ exports[EL.BLOCKQUOTE] = createReactClass(React.DOM.blockquote);
 exports[EL.BULLETLIST] = createReactClass(React.DOM.ul);
 exports[EL.EM] = createReactClass(React.DOM.em);
 exports[EL.HEADER] = Header;
+exports[EL.IMAGE] = Image;
 exports[EL.INLINECODE] = createReactClass(React.DOM.code);
 exports[EL.LISTITEM] = createReactClass(React.DOM.li);
 exports[EL.LINK] = Link;
