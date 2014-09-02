@@ -23,7 +23,7 @@ TODO
 * ~~Clean up the installation~~
 * ~~Clean up repo~~
 * Build a small example of what is possible with React together with markdown (numbered titles, onClick,...)
-* Make this useable for a blog site (compile to React and static HTML)
+* ~~Make this useable for a blog site (compile to React and static HTML)- See [react-markdown-server](https://github.com/tcoopman/markdown-react-server)~~
 * Add a backend for: chjj/marked
 * More tests and fix the tests to point to lib
 * Complete documentation
@@ -43,6 +43,13 @@ Tests
 * `npm install`
 * compile jsx `node_modules/react-tools/bin/jsx --watch --harmony src/ dist/`
 * run `node_modules/mocha/bin/mocha`
+
+Build
+-----
+* clone this repo
+* `npm install`
+* compile jsx `node_modules/react-tools/bin/jsx --watch --harmony src/ lib/`
+
 
 Maybe later
 -----------

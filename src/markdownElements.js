@@ -3,6 +3,7 @@ var elements = {
   BULLETLIST: 'bulletlist',
   EM: 'em',
   HEADER: 'header',
+  IMAGE: 'img',
   INLINECODE: 'inlinecode',
   LINK: 'link',
   LINKREF: 'link_ref',

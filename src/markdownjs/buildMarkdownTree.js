@@ -18,6 +18,7 @@ function getDefaultBuilders() {
   builders[EL.BLOCKQUOTE] = customBuildFactory(EL.BLOCKQUOTE);
   builders[EL.EM] = customBuildFactory(EL.EM);
   builders[EL.HEADER] = buildHeader;
+  builders[EL.IMAGE] = buildImage;
   builders[EL.INLINECODE] = customBuildFactory(EL.INLINECODE);
   builders[EL.LINK] = buildLink;
   builders[EL.LINKREF] = buildLinkRef;
@@ -126,6 +127,19 @@ function buildHeader(tokens, builder) {
   });
 
   return {id: id, level: level, values: values};
+}
+
+
+function buildImage(tokens, builder) {
+  var id = EL.IMAGE;
+  var alt = tokens[0].alt;
+  var href = tokens[0].href;
+
+  var values = tokens.slice(1).map(token => {
+    return builder.build(token);
+  });
+
+  return {id: id, alt: alt, href: href};
 }
 
 
