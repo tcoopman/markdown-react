@@ -25,5 +25,5 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:tcoopman/webpack-image-loader.git"
-  },
+  }
 }
