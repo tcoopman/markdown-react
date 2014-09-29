@@ -24,6 +24,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:tcoopman/webpack-image-loader.git"
+    "url": "git@github.com:tcoopman/markdown-react.git"
   }
 }
