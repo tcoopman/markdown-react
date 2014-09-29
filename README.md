@@ -28,7 +28,8 @@ TODO
 * More tests and fix the tests to point to lib
 * Complete documentation
 * ~~Server example~~
-* Publish to npm
+* ~~Publish to npm~~
+* Sanitize input
 
 Installation
 ------------
