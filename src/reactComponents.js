@@ -28,7 +28,12 @@ var Link = React.createClass({
     if (this.props.component.href) {
       link = this.props.component.href;
     } else {
-      link = this.props.builder.references[this.props.component.ref].href;
+      if (this.props.builder.references &&
+            this.props.builder.references.hasOwnProperty(this.props.component.ref)) {
+        link = this.props.builder.references[this.props.component.ref].href;
+      } else {
+        link = '';
+      }
     }
     var values = this.props.builder.buildValues(this.props.component.values);
 
