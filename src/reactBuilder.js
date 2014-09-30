@@ -10,7 +10,7 @@ function ReactBuilder(elements) {
 ReactBuilder.prototype.build = function(top) {
   this.references = top.references;
   return this.buildElement(top.section);
-}
+};
 
 
 ReactBuilder.prototype.buildElement = function(component) {
@@ -36,7 +36,7 @@ ReactBuilder.prototype.buildElement = function(component) {
     return <div>AARRRGGGH</div>;
   }
 
-}
+};
 
 
 ReactBuilder.prototype.buildValues = function(values) {
@@ -50,7 +50,7 @@ ReactBuilder.prototype.buildValues = function(values) {
   }
 
   return buildedValues;
-}
+};
 
 
 exports.ReactBuilder = ReactBuilder;
