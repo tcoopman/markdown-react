@@ -20,13 +20,14 @@ A server example can be found in [react-markdown-server](https://github.com/tcoo
 TODO
 ----
 
+* better error handling (add a test fase, and do the correct thing on error (render the error for example))
 * ~~Clean up the installation~~
 * ~~Clean up repo~~
 * Build a small example of what is possible with React together with markdown (numbered titles, onClick,...)
 * ~~Make this useable for a blog site (compile to React and static HTML)- See [react-markdown-server](https://github.com/tcoopman/markdown-react-server)~~
 * Add a backend for: chjj/marked
 * More tests and fix the tests to point to lib
-* Complete documentation
+* Complete documentation (document api)
 * ~~Server example~~
 * ~~Publish to npm~~
 * Sanitize input
