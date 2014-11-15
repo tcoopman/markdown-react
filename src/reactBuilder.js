@@ -28,7 +28,7 @@ ReactBuilder.prototype.buildElement = function(component) {
   if (component.id) {
     var element = this.elements[component.id];
     if (element) {
-      return <element component={component} builder={this} />;
+      return React.createElement(element)({component: component, builder: this});
     } else {
       return <div>NOOOO</div>;
     }

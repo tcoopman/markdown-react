@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+'use strict';
 var React = require('react');
 
 var EL = require('./markdownElements');
@@ -10,10 +10,9 @@ var Header = React.createClass({
     var values = this.props.builder.buildValues(this.props.component.values);
     var level = this.props.component.level;
     if (level && level > 0 && level < 7) {
-      var h = React.DOM['h' + level];
-      html = (<h>{values}</h>);
+      html = React.DOM['h' + level](null, values);
     } else {
-      html = (<div>"ERROR incorrect level"</div>);
+      html = React.DOM.div(null, "ERROR incorrect level");
     }
     return (
       html
@@ -55,9 +54,7 @@ function createReactClass(element) {
   return React.createClass({
     render: function () {
       var values = this.props.builder.buildValues(this.props.component.values);
-      return (
-        <element>{values}</element>
-      );
+      return React.createElement(element)(null, values);
     }
   });
 }
