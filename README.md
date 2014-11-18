@@ -3,6 +3,8 @@ markdown-react
 
 React markdown renderer
 
+*I have switched to https://github.com/jonschlinkert/remarkable for my blog and website, so I'm not sure if I will continue to support this*
+
 What is this?
 -------------
 
