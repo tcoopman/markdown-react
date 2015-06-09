@@ -7,7 +7,8 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "watch": "babel src --watch --out-dir lib",
-    "test": "npm run build && mocha"
+    "test": "npm run build && mocha",
+    "prepublish": "npm build"
   },
   "dependencies": {
     "markdown": "^0.5.0"
