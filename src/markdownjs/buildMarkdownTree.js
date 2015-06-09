@@ -1,9 +1,7 @@
-/** @jsx React.DOM */
 'use strict';
 
 var markdown = require('markdown').markdown;
 var EL = require('../markdownElements');
-
 
 /**
  * getDefaultBuilders - returns the default element builders for the markdown

@@ -3,7 +3,6 @@ var React = require('react');
 
 var EL = require('./markdownElements');
 
-
 var Header = React.createClass({
   render: function () {
     var html;

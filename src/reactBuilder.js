@@ -1,6 +1,4 @@
-/** @jsx React.DOM */
 var React = require('react');
-
 
 function ReactBuilder(elements) {
   this.elements = elements;
