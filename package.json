@@ -5,7 +5,9 @@
   "main": "index.js",
   "author": "Thomas Coopman <thomas.coopman@gmail.com> @tcoopman",
   "scripts": {
-    "watch": "babel src --watch --out-dir lib"
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --watch --out-dir lib",
+    "test": "npm run build && mocha"
   },
   "dependencies": {
     "markdown": "^0.5.0"
