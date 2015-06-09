@@ -4,18 +4,23 @@
   "description": "React markdown renderer",
   "main": "index.js",
   "author": "Thomas Coopman <thomas.coopman@gmail.com> @tcoopman",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --watch --out-dir lib",
+    "test": "npm run build && mocha",
+    "prepublish": "npm build"
+  },
   "dependencies": {
-    "markdown": "^0.5.0",
-    "react-tools": "^0.12.0"
+    "markdown": "^0.5.0"
   },
   "devDependencies": {
+    "babel": "^5.5.6",
     "chai": "^1.9.1",
     "mocha": "^1.21.4",
-    "react-tools": "^0.12.0",
     "sinon": "^1.10.3"
   },
   "peerDependencies": {
-    "react": "^0.12.0"
+    "react": "*"
   },
   "licenses": [
     {

@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
-var build = require('../dist/buildMarkdownTree');
+var build = require('../lib/buildMarkdownTree');
 
 
 var builder = {

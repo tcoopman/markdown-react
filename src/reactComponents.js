@@ -1,22 +1,23 @@
 'use strict';
 var React = require('react');
+var invariant = require('react/lib/invariant');
 
 var EL = require('./markdownElements');
-
+var between = (n, lower, upper) => typeof n === 'number' && n > lower && n < upper;
 
 var Header = React.createClass({
   render: function () {
-    var html;
-    var values = this.props.builder.buildValues(this.props.component.values);
     var level = this.props.component.level;
-    if (level && level > 0 && level < 7) {
-      html = React.DOM['h' + level](null, values);
-    } else {
-      html = React.DOM.div(null, "ERROR incorrect level");
-    }
-    return (
-      html
+    invariant(
+      between(level, 0, 7),
+      'You attempted to create a header with a level of `%s`. ' +
+      'A header must be in the range 1..6'
     );
+
+    var values = this.props.builder.buildValues(this.props.component.values);
+    var element = `h${level}`;
+
+    return React.createElement(element, null, values);
   }
 });
 
@@ -43,9 +44,9 @@ var Link = React.createClass({
 });
 
 
-var Image =  React.createClass({
+var Image = React.createClass({
   render: function () {
-    return React.DOM.img({alt: this.props.component.alt, href: this.props.component.href}, null);
+    return <img alt={this.props.component.alt} href={this.props.component.href} />
   }
 });
 
@@ -54,22 +55,22 @@ function createReactClass(element) {
   return React.createClass({
     render: function () {
       var values = this.props.builder.buildValues(this.props.component.values);
-      return React.createElement(element)(null, values);
+      return React.createElement(element, null, values);
     }
   });
 }
 
 
-exports[EL.BLOCKQUOTE] = createReactClass(React.DOM.blockquote);
-exports[EL.BULLETLIST] = createReactClass(React.DOM.ul);
-exports[EL.EM] = createReactClass(React.DOM.em);
+exports[EL.BLOCKQUOTE] = createReactClass('blockquote');
+exports[EL.BULLETLIST] = createReactClass('ul');
+exports[EL.EM] = createReactClass('em');
 exports[EL.HEADER] = Header;
 exports[EL.IMAGE] = Image;
-exports[EL.INLINECODE] = createReactClass(React.DOM.code);
-exports[EL.LISTITEM] = createReactClass(React.DOM.li);
+exports[EL.INLINECODE] = createReactClass('code');
+exports[EL.LISTITEM] = createReactClass('li');
 exports[EL.LINK] = Link;
 exports[EL.LINKREF] = Link;
-exports[EL.NUMBERLIST] = createReactClass(React.DOM.ol);
-exports[EL.PARA] = createReactClass(React.DOM.p);
-exports[EL.SECTION] = createReactClass(React.DOM.section);
-exports[EL.STRONG] = createReactClass(React.DOM.strong);
+exports[EL.NUMBERLIST] = createReactClass('ol');
+exports[EL.PARA] = createReactClass('p');
+exports[EL.SECTION] = createReactClass('section');
+exports[EL.STRONG] = createReactClass('strong');

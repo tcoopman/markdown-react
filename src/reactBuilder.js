@@ -1,6 +1,4 @@
-/** @jsx React.DOM */
 var React = require('react');
-
 
 function ReactBuilder(elements) {
   this.elements = elements;
@@ -25,31 +23,24 @@ ReactBuilder.prototype.buildElement = function(component) {
     return component[0];
   }
 
-  if (component.id) {
-    var element = this.elements[component.id];
-    if (element) {
-      return React.createElement(element)({component: component, builder: this});
-    } else {
-      return <div>NOOOO</div>;
-    }
-  } else {
-    return <div>AARRRGGGH</div>;
+  var TheElement = this.elements[component.id];
+  if (!TheElement) {
+    return <div>NOOOO</div>;
   }
+  // monkey punch, amirite?
+  if (typeof TheElement === 'function') {
+    return React.createElement(TheElement, {component, builder: this});
+  }
+
+  return <TheElement component={component} builder={this} />;
 
 };
 
 
 ReactBuilder.prototype.buildValues = function(values) {
-  var buildedValues;
-  if (Array.isArray(values)) {
-    buildedValues = values.map(item => {
-      return this.buildElement(item);
-    });
-  } else {
-    buildedValues = this.buildElement(values);
-  }
-
-  return buildedValues;
+  return Array.isArray(values) ?
+    values.map(item => this.buildElement(item)) :
+    this.buildElement(values);
 };
 
 
