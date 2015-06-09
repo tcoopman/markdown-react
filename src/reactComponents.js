@@ -9,7 +9,7 @@ var Header = React.createClass({
   render: function () {
     var level = this.props.component.level;
     invariant(
-      between(level, 0, 6),
+      between(level, 0, 7),
       'You attempted to create a header with a level of `%s`. ' +
       'A header must be in the range 1..6'
     );
