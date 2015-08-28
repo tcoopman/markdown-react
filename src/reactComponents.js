@@ -46,7 +46,7 @@ var Link = React.createClass({
 
 var Image = React.createClass({
   render: function () {
-    return <img alt={this.props.component.alt} href={this.props.component.href} />
+    return <img alt={this.props.component.alt} src={this.props.component.href} />
   }
 });
 
