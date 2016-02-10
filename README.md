@@ -11,8 +11,8 @@ What is this?
 A markdown to [React](http://facebook.github.io/react/) renderer.
 
 
-Parse markdown to a React structure instead of a html. This allows you to all sort of custom things that you can do with react.
-This means you can render a normal html structure but also do al sort of crazy things.
+Parse markdown to a React structure instead of a html. This allows you to all sort of custom things that you can do with React.
+This means you can render a normal html structure but also do all sort of crazy things.
 
 This script doesn't parse markdown, instead it uses `evilstreak/markdown-js`. I'm probably going to add an other backend too `chjj/marked`
 
@@ -22,7 +22,7 @@ A server example can be found in [react-markdown-server](https://github.com/tcoo
 TODO
 ----
 
-* better error handling (add a test fase, and do the correct thing on error (render the error for example))
+* better error handling (add a test phase, and do the correct thing on error (render the error for example))
 * ~~Clean up the installation~~
 * ~~Clean up repo~~
 * Build a small example of what is possible with React together with markdown (numbered titles, onClick,...)
